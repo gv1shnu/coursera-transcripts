@@ -1,0 +1,35 @@
+# IBM Signup
+
+- **Course:** Quantum Computing With Qiskit And Advanced Algorithms
+- **Module 1:** Qiskit 101
+- **Lecture #:** 3
+- **URL:** https://www.coursera.org/learn/packt-quantum-computing-with-qiskit-and-advanced-algorithms-wils7/lecture/tJA6V/ibm-signup
+- **Extracted:** 2026-06-22 15:19:38
+
+---
+
+Hi. Before we deep dive into the quantum gates and circuits and also the Qiskit, we need to do one more thing, which is signing up to the IBM Quantum Experience in order to get something called an API key. So this will let us run our code in the real quantum machines, real quantum computers. So, we're going to have to take care of that.
+
+So, as I said before, we're going to work with IBM in this lecture, in this section, and in this course, generally, and this is not the only option, of course, there are other corporations that work on quantum computers as well, but at the time, I'm recording this IBM is the only one that lets us freely actually access to this quantum computers, and run our code without any hassle. So, in order to do that, we're going to have to just sign, sign up, just give our email address, or just login with like a Google or LinkedIn or Twitter, in order to get your API key, which we will be using later on in order to run our code on real computers. And also, it will let us to use that quantum circuit composer that I have shown you before, and I said that, yeah, we're going to come back to this, and we're going to see how it works later on, now this is the time to do that. So, it doesn't ask us for a credit card, it doesn't ask us for anything, you're just going to have to give some basic information, like your name and email.
+
+Of course, if you don't want to sign up, then you can just take notes and watch the following lectures as well, but in order to run your code on quantum circuit composers, or the general quantum computers, you need to sign up for that. So, we will discuss what kind of technology, what kind of hardware that IBM uses, and what kind of technology the other company uses at the latest section, by the way. So the time that I'm recording this, it's quantum-computingibm.com, but the easiest way for you to find this website is come over here to Google and just search for IBM Quantum, and as you can see, it takes you to the Quantum Computing website of the IBM. So, that's very easy.
+
+So, if you take a look around, as you can see, there is a picture of a real quantum computer over here, it looks cool. And as you can see, you can see all the latest news and developments or the essays that has been published by the IBM over here in the web page. Of course, you will see different images, different text, when you come into this website. But all you got to do is just find this launch IBM computing button and click on it.
+
+So it will land you to this Web page where you will need to sign up or sign in. So, many of you won't have any account that has been created before, it really is very easy. All you got to do is just choose one of the options over here and just sign up. And over here, as you can see, it says that New to IBM Quantum?
+
+You can just create an IBMid account for yourselves as well. Since I already have an IBM account, I'm just going to sign in into that, but if you don't, just make sure you create your account. I'm not going to show you how to create an account, it's just giving some, your name and your surname and your email, and that's it, okay. So I'm going to sign in over here, and I will just go on to the dashboard, here you go.
+
+Now, as you can see, this is our dashboard. Of course, the visuals, the layout, the user interface can be different when you see this, it really doesn't matter. I'm going to show you exactly what to look for, over here, because we're going to be working with mainly the circuit composer, and, maybe you may want to work with the Jupyter Notebooks that are embedded in this website as well, and I'm going to show you how to use that. So over here you will have your API token.
+
+If you cannot find your API token in the dashboard over there, of course, you can find it under your profile, or any other menus that you may want to explore. But at this time, we can just see the API token over here. It doesn't actually show it in real text, like simple text. You're just going to have to copy this and paste it somewhere else, but we will be using this API token, okay, later on when we want to actually run our code on real quantum computers.
+
+Right now I'm not going to do anything, but this is the main reason that we have signed up. And, at the left hand side, we have two options, IBM Quantum Composer and IBM Quantum Lab. So IBM Quantum Composer is the circuit composer that I have shown you before, you don't know what it does, but you will see it in a couple of lectures, and it will be very helpful for us to visualize what's going on when we apply gate, so that we can actually understand what's going on behind the curtains as well. So if you go into the lab, I'm not going to do that, if you go into the lab, okay, we're not going to use this during this section, but you may want to use it, it actually opens up a Jupyter Notebook area, like a Jupyter Notebook system for you.
+
+And for some reason, I believe I logged out by mistake, so let me try to log in one more time. So let me just go ahead and come over here, yeah, here we go. So in the Quantum lab, it actually provides you with the Jupyter Notebook, and it's very easy to use it. I'm going to come back to that later on and show you how to use it.
+
+At the left hand side, we have a menu, and over here we can actually use the, use that menu to reach to the lab, and also circuit composer as well. I really suggest for you to go into the circuit composer right now, because we will be using this a lot during the lectures, okay. As I said before, we're not going to use the quantum lab, but maybe you may want to use it, but you will definitely need the quantum circuit composer that we're going to be using over here. So, here you go.
+
+If you signed up, and if you managed to open this quantum circuit composer, then you're good to go. Again, I'm going to show you how to use Quantum lab, because, maybe you don't want to run quantum course on your actual machine, maybe you may want to keep your environment clean, maybe you don't want to install the Qiskit or any other libraries that are related with the Python, quantum computing stuff, that's when you may want to use the quantum lab. But over here, we're just going to deep dive into this and see how it works. At the right hand side, we see this Q-sphere, and at the left hand side we see this Probabilities, because we will deal with that kind of gates and that kind of matrix operations a lot.
+
+So, we will need a way to immediately understand what's going on in the visual side and what's going on in the probability side as well. So, if you're ready, we're going to stop here and take a break and go into the next lecture where we start with the quantum gates.

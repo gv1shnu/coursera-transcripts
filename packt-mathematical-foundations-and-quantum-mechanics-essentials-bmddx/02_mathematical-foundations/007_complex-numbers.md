@@ -1,0 +1,51 @@
+# Complex Numbers
+
+- **Course:** Mathematical Foundations And Quantum Mechanics Essentials
+- **Module 2:** Mathematical Foundations
+- **Lecture #:** 7
+- **URL:** https://www.coursera.org/learn/packt-mathematical-foundations-and-quantum-mechanics-essentials-bmddx/lecture/uTnoE/complex-numbers
+- **Extracted:** 2026-06-22 14:44:45
+
+---
+
+Hi. Within this lecture, we're going to continue learning about Math fundamentals for quantum computing, and we're going to continue with complex numbers. So, maybe you have heard of this term, maybe you have seen this in high school, so let me remind you that we have something called Imaginary number, it's actually Imaginary because we imagined it, because it doesn't exist. So, it goes like this, i=, or Imaginary number equals to square root of -1.
+
+Of course, you don't have something like square root of -1, but it happens that it's actually very beneficial in some kind of complex formulations or complex calculations, and we are going to do a lot of complex calculations, when it comes to quantum computing, and we're going to deal with geometric linear transformations all the time, and matrices as well, and, it will be very helpful when we come to dare. So complex number is actually any number with combined or added to an Imaginary number, like a + bi, b is actually a regular number over here, for example, 5+3i, okay. And, when you see something like square root of -9, for example, you can obviously write that as square root of 9 multiplied by square root of -1, and it's actually equal to 3i. Okay, so bear in mind is that i = square root of -1.
+
+Again, this is imaginary, we're just using it to be able to do complex calculations. So, let's see an example together, we know that i = square root of -1, but over here, we have something much more complex, square root of i, of course, this doesn't exist as well. But, it may come in handy when we try and do some complex calculations or geometric functions, and we're going to come across something like that, okay. So square root of i = 1+i divided by square root of 2.
+
+So, let's as an example, prove this, okay. So how do we get there? Of course, one way to prove this may be is to take the squares of the both side of the equation, and see if they are actually equal to each other. So, maybe you may want to just pause the video here and try for yourselves, try to take the square of the left hand side and the square of the right hand side, and try to see if they are equal, okay, and by equal I mean, if they're going to be equal to i, obviously gives the square root of i, if you just take the square of this, it will be equal to i, right?
+
+So pause the video and try to do this on your own. So, I hope you managed to do it, but let me show you how it goes. Of course, the left hand side will be equal to i because it's obvious. But over here, at the right hand side, we're going to have divided by 2, and we're going to have 1 + i squared.
+
+Now, how do we square this 1+i, of course, this is a squared +2 ab and b squared. Now, if you just do the calculation, you will just get 1, and then you get 2i, and then you got i squared, right, because that is the last element over here. But i squared is equal to -1, right? So, we get, we get here.
+
+So 1 - 1 will be equal to 0, and 2i divided by 2 will be equal to i itself. So we know this is actually i itself. As you can see, now we proved this. Of course, this is only one way to prove it, but I believe this will do the work for us right now.
+
+So, let's go back to our slides, and, yes, we seen this and we have seen this as well. Again, this is only for you to practice, but now we're going to see how to do summation or like subtraction or multiplication or division by the complex numbers. For example, if you want to add two complex numbers together, you add the regular numbers and then the imaginary numbers by itself, which is very easy, right, so in this case this is 8, 8+6i, and in the downside over here we have the 3-2i, and -5+4i, of course, we're going to deal with 3-5, and then 4i-2i. So, just add the real numbers by themselves and the imaginary numbers by themselves, of course, it goes the same way for the subtraction as well.
+
+If you're going to do a multiplication, then you're going to just have to multiply the real number, and then multiply the imaginary number. That's it, it's very easy, and it goes the same way for dividing a complex number as well. You just divide the real number, and then you just divide the imaginary number as well. So, this is easy, right?
+
+However, there can be some other alterations over here when we try to actually work with the complex numbers. For example, if I want to just multiply a complex number by an imaginary number, it's not going to change much, right, because we're just going to multiply it by the real number, and then just the imaginary number as well. However, yeah, I forgot to add the 2 over here. However, this time, this will become 3i + 2i squared.
+
+And, it means that 2i squared will be -2, right, because i square will be -1. So, here we go. Now we have -2+3i. And again, if you want to do this thing, 5+3i, 3+2i, then you're going to just follow the same exact thing that you should do when you do with a real number.
+
+So this will be 9i + 6i squared. And this will be, of course, 15, 19i, and + 6i squared, and maybe you already understood that 6i squared will be actually -6, so that you get to + 9 + 19i. Okay, so as you can see, when we multiply a complex number with a complex number, just beware that when you see i squared, just put -1 instead of it. So, there is a term called Complex Conjugate, and it is actually related with the complex numbers.
+
+So if you see something like Complex Conjugate of some complex number, it means that you're going to have to change the sign of the imaginary part, okay, not the real part, only the imaginary part. So as you can see, if it's a +, you're going to do it as a -, if it's a -, you're going to just convert it into a +. We're going to use this Complex Conjugate a lot in the quantum computations, as well as we're going to use the Squared Magnitude as well. So Squared Magnitude means only you're just dealing with the real numbers, and just take the squares off it.
+
+But don't forget about it, Complex Conjugate, you're changing the sign, okay, sign of the imaginary part, not the real part itself, only the imaginary part. And, in the Squared Magnitude, you're only dealing with the coefficients of the real number, of course, and also the imaginary part as well. We're not dealing with the i itself, we're only dealing with the coefficients of it, so 3 squared and 2 squared in this case, okay, we're going to use this a lot in the actual probability calculations when it comes to quantum computing as well later on. So these are all terms, you may get confused around here, or you may want to take notes, feel free to do that, or you can just come back to the slides, I'm going to share all the slides with you at the end of the course, so, don't worry about it, okay, if you don't want to take the note, but these are all terms you just have to memorize in some part of the way.
+
+So, Complex No * Complex Conjugate of that number is actually the Squared Magnitude of that number. So, how do you do that? Just take this as an example, 3+2i, and the Complex Conjugate of it, of course, will be 3-2i. If you multiply them together, let's see what you get, maybe you may want to pause the video and just do it yourselves, in order to understand that this will be Squared Magnitude.
+
+So I'm going to do it, 9-6i and + 6i, and there you're going to have -4i squared, right? So -6i and + 6i will be cancelling out each other, and we're going to have, like, 9+4, right, because i squared will be -1 eventually, so we're going to have 9+4, and this is exactly the definition of the squared magnitude. Right? Again, we're going to have lot of examples regarding to this kind of operation, but just so you know, just try to memorize at least the terms, Complex Conjugate, Squared Magnitudes.
+
+Okay. That's it for the Complex Conjugate and Squared Magnitudes, but we're going to learn something related with the division of the two complex numbers. Now, it's easy when you try to divide a complex number by a real number, but it can get complex when you try to divide a complex number to complex number. So, I here have a very easy, actually division, because you can easily see that the upper part is actually the two times of the lower part.
+
+But, if it wasn't, then we're going to have to just multiply the whole thing with the complex conjugate of the dividing part. Okay. So over here, we have seen that if we want to actually divide the complex number by a real number, it's very easy. You just divide the real number and then the imaginary number.
+
+By doing so, I know that, by multiplying this with the Complex Conjugate of itself, I know that it's going to result in a real number, right, because it's going to result in the Squared Magnitude of that imaginary part or the complex number itself. So, I'm going to do exactly the same thing that I have done over here, so I'm going to multiply it by 3-2i, of course, not to just make things wrong, I'm going to multiply the upper side as well, it will result in 13. But, what about the upper part? Of course, I'm just going to multiply these two together, and eventually it will come out as 18 - 12i + 12i and then -8i squared.
+
+And, if we do the calculation, it will be 26 divided by 13, and it will be equal to 2. However, again, this hasn't, this doesn't have to be necessarily a real number if we divide them together. If we have a regular number at the dividing part, then we can just write it as like a+bi divided by something, okay. The trick over here is to just take the Complex Conjugate of the denominator and just multiply the whole complex division by the Complex Conjugate.
+
+Great. Now, I believe we have seen enough for the complex numbers, and you have all of those things in your slides, okay. We're going to stop here, and we're going to continue with the matrices, which is the, one of the most important parts that we're going to be seeing during this section. See you in next lecture.

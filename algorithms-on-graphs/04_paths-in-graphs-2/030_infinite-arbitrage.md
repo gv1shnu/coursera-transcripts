@@ -1,0 +1,37 @@
+# Infinite Arbitrage
+
+- **Course:** Algorithms On
+- **Module 4:** Paths in Graphs 2
+- **Lecture #:** 30
+- **URL:** https://www.coursera.org/learn/algorithms-on-graphs/lecture/MrQ2H/infinite-arbitrage
+- **Extracted:** 2026-06-21 21:27:54
+
+---
+
+Hi. In this video, we will finally answer the question of whether infinite arbitrage is possible with the specific currency exchange graph or not and how to actually exploit it if it is possible. In other words, we will answer the question of whether for this particular graph of exchange rates, it is possible to exchange $1,000 to as many Russian rubles as you want or to as many US dollars as you want or it is not possible, and if it is possible, then how to achieve that. This lemma is the final answer.
+
+It says that it is possible to get any amount of currency u from currency S if and only if u is reachable from some node w for which its dist value decreased on the iteration number V of Bellman-Ford algorithm. First, to get any amount of currency u from currency S, there must be a negative cycle. It means that there must be some change on the iteration number V, so there will be some node w for which its dist value changes on iteration number V. So that if node u is reachable from some such node, then it is possible to get as much of this currency as you want, otherwise it is impossible.
+
+Now let's prove this lemma. One direction is suppose that u is reachable from some node w, such that dist value of w decreased on iteration number V. From the fact that dist value of w decreased on iteration number V falls that w is reachable from a negative weight cycle. In the previous video, we showed how to actually find a negative weight cycle from which w is reachable if dist value of w changes on the iteration number w.
+
+U is reachable from w and w is reachable from a negative cycle, which means that u is reachable from a negative cycle, which is reachable from S. We can use this negative cycle to get as much of currency u as we want because we go from S to this negative cycle to node x, for example, then we go through this negative cycle for as many times as we want, and this effectively increases the amount of currency x that we have to any amount we want. Then at some moment, we decide we'll go and exchange currency x to currency u and there is a path to do that. This is a way to get as much of currency u as you want.
+
+Proof in the other direction is also harder. Here, we need to prove that if it is possible to make an infinite arbitrage from the starting node to node u, then u should be reachable from some node, which was relaxed on the iteration number V. Let's prove that. After V minus 1 iterations, dist value of u is equal to some value L.
+
+As it is possible to make infinite arbitrage to u, then there definitely exists a path that is even shorter than L and it contains some number of edges k. In this case, dist of u will be decreased on some iteration k, starting from number V. Dist of u will definitely be decreased in the future. Important observation is that if at some point neither edge x, y was relaxed nor dist of x decreased on some iteration, then this edge won't be relaxed on the next iteration.
+
+Why is that? Well, because when we check the condition on relaxation, it turned out that dist of y is already less than or equal to dist of x plus weight of the edge from x to y, and if the edge was not relaxed and dist value of x didn't decrease, then the right part didn't decrease so the conditions still won't be satisfied in the next iteration and so this edge won't be relaxed again. From it follows that only the nodes which are reachable from those relaxed on previous iterations can be relaxed. Because either we already relaxed the edge on the previous iteration and then node is reachable from itself, or if the edge was not relaxed, then at least the starting node of this edge has to be relaxed in the previous iteration so that the edge can be updated and relaxed on this iteration.
+
+The only nodes that get updated starting from iteration number V are those nodes which were updated right at the iteration number V or the nodes which are original from them. As we know that dist value of u is relaxed on some iteration after iteration V or maybe at the iteration V itself, then you must be reachable from some node which was relaxed in iteration number V. This finishes our proof of the main lemma. Now, this lemma gives us the algorithm to detect infinite arbitrage.
+
+First, we do V iterations of Bellman-Ford algorithm and we save all the nodes which were relaxed on iteration number V. Not just one but all of them, and we save them in a set A. Then we create a queue out of all those nodes and we do that to apply the breadth-first search algorithm that we recently studied, starting with this queue. Instead of putting just one node into the queue, we put all the nodes from the set A into the queue.
+
+If we do breadth-first search starting with this set of nodes, then we will find all the nodes which are reachable from at least one of these nodes. We find all the nodes which are reachable from the nodes, which were relaxed on iteration number V, and this way we find all the nodes for which the infinite arbitrage is possible. All those nodes and only those can have infinite arbitrage. During breadth-first search from this set of nodes which were relaxed on iteration number V, we should also remember the parent of each visited node, the previous node.
+
+This will allow us to reconstruct the path from the currency u to some node w, which was relaxed on iteration number V and was initially in the set A and in the queue, if such a path exists. In this case, we'll first reconstruct this path back from u to the nodes relaxed on iteration w, and also we can use our algorithm for finding a negative cycle from which w is reachable and we'll find this negative cycle, and then we can use this negative cycle to achieve infinite arbitrage from S to u. To do that, we just need to go from S to any node of this negative cycle. We know that this negative cycle is reachable from node S, then we can go as many times as we want through this negative cycle.
+
+Then we'll go through the path from this negative cycle to node w by reversing the path which we reconstructed, and then we'll go from w to u by the reconstructed path from w to u. This will give us as much as many of currency u as we want. This is the algorithm for actually getting as many rubles out of US dollars when it is possible to do such arbitrage. It actually doesn't matter whether you need to get rubles from dollars or dollars from rubles or dollars from dollars.
+
+For any pair of currencies, you can detect whether it is possible or not to make an infinite arbitrage from one of them to another. They can be in the same currency, and if it is possible, you can now reconstruct the exact way to do that. To conclude, now you can implement the best possible exchange rate between any two currencies even if there is no potential arbitrage, you can determine whether infinite arbitrage is possible for a pair of currencies, and you can actually implement this infinite arbitrage as you want. More generally, you can find shortest paths in weighted graphs with any weights on the edges, whether those are positive or negative or zero.
+
+You can still find shortest paths with efficient Bellman-Ford algorithm. Also, you can detect and find negative cycles in graphs if they are present.

@@ -1,0 +1,33 @@
+# Braket
+
+- **Course:** Mathematical Foundations And Quantum Mechanics Essentials
+- **Module 3:** Qubit and Physics
+- **Lecture #:** 16
+- **URL:** https://www.coursera.org/learn/packt-mathematical-foundations-and-quantum-mechanics-essentials-bmddx/lecture/TgAyL/braket
+- **Extracted:** 2026-06-22 14:46:20
+
+---
+
+Hi. Within this lecture, we're going to see a notation that we will be using intensely, in order to simplify the mathematical formulations or mathematical operations that we will be working on for the following lectures. This notation is called Bra-Ket. So, of course, you can pronounce this like bracket, but, it's actually Bra-Ket, and I'm going to show you what it is.
+
+So remember this, okay, so we have taken the Adjoint of the first matrix, and then we multiplied it with the second matrix in order to get the probability. So, we're going to do this a lot, and also, we're going to actually represent the vectors or the column matrices a lot as well. So, in order to simplify this, so, Dirac came up with this Bra-Ket notation, in which he actually simplified this operations in a much better way. So what happens over here is that you can see this angular signs over there, like this is called Bra, okay, the first one is called Bra, and the second one is called Ket.
+
+So, if you see this smaller than or bigger than sign, with a piping sign in the middle, or at the beginning, or at the end, you know that you're dealing with a Bra-Ket notation, okay. So, if you see this Bra-Ket together, so like this, it means that we're going to take the adjoint of the A and multiply it with the E. But if you see this Ket only, okay, this one or that one, they represent some specific column matrices, okay, some vectors. So, in this case, for example, if you see Ket 0, it means that we're talking about the state 0, which is 1 0, and if you see Ket 1, it means that we're talking about the vector, which is 0 1.
+
+So we know that it represents 1 0 over here, and the other way around at the left hand side. So, the values over here like 0 and 1, doesn't mean actually anything, we could have just called them 0, okay, by writing by text, or 1. So, we don't actually perform some kind of mathematical operations inside of this value, it's just a notation. So Ket 1, when you see Ket 1, know that we're talking about this particular matrix, which is 0 and 1.
+
+And if you see Ket 0, then we're talking about the other matrix. And, we need this because we're not only going to be dealing with one single qubit all the time, we're going to deal with multiple qubits and it's going to get ugly. So, we're going to have to know about this notation, and leverage it in a way that it simplifies our operations. So, let me go back here.
+
+So again, this is circuit composer, we're going to take a look at it in a couple of lectures, but, know that we are going to be dealing with this a lot. And, in the previous lecture, we have seen that notation, as you can see, this is Ket 0 and it represents the 0 state over here. Okay, so this is like a visualization of the vector that we're talking about. And remember, I applied something called NOT gate to make it into one state.
+
+And over here, we don't see the matrix itself, we see the Ket 1, but we know that it's talking about that particular matrix that we have learned about, right, so over here, we see that we get 100% probability of getting 1. So far so good. Now, you have to understand that this is just a notation, okay, it's not a big deal, it's a way to simplify the matrices that we will be working on, but it actually helps us a lot. Most of the time, we're not going to even see the Bra-Ket notation, we're going to be working with the Ket notation, but let's see how it actually simplifies things for us.
+
+For example, we talked about this is a Superposition matrix, because 1 over square 2, 1 over square 2, if you just take the 1 over square 2 as a coefficient from here, like a scalar, then you can actually simplify this like that, right? So what does it mean? It means that we get to actually take the 1 or 1 over square root 2 to the left hand side, and we can just simplify this notation by writing Ket 0 + Ket 1, and believe it or not, we're going to see this like 1000 times more for the following lectures as well. So, as you can see, it's easier to write this rather than writing the whole matrix, even in one qubit states, okay, we are dealing with only one qubit right now, as you might remember, this is the probability of getting 1 or 0 for only 1 qubit.
+
+And, by using this Ket notation, we can actually specify the two qubit notations, two qubit states as well. So if we're dealing with multi qubits or two qubits in the specific example, we know that we don't only have 1 or 0, we can have 0 0 state, or 0 1 state, 1 0 state, and 1 1 state as well, right? So, obviously, in the qubits, during the quantum computations, it can be anything, not only 1 and 0 as we talked about, but once we eventually measure this, it will collapse into 0 or 1 for the classical qubits, in order for us to understand what's going on, and, then we need to specify this states in Ket notations, and it would be much more easier for us to do that, rather than just writing whole matrix. So this matrix over here represents the Ket 00, and this one, Ket 01, Ket 10, and Ket 11.
+
+So, how do we actually build these matrices? Okay, maybe we have understood that, the Ket 1 is this, okay, so Ket 1 is 0 1, and Ket 0 is 1 0. But how do we go from there to here, Ket 00? It's very easy actually, once you deal with multi qubits, you're going to have to introduce the tensor products that we have seen before.
+
+So for Ket 1 1, you're going to have to take the tensor products of 0 and 1, and you're going to see it will add up to this. And it's all the same for all the column matrices, the vectors that you see over there. For exercise, I really suggest for you guys to stop the video, pause the video, and try to calculate the tensor product of Ket 0 and Ket 0 together. Let's see if you can get this particular matrix that we are seeing right now, for Ket 0 0.
+
+Of course, in time, whether you do this exercise or not, you will get used to the fact that this is the Ket 0 0, this is the Ket 0 1, and Ket 1 1, and so on, you will immediately know what this is once you see it, but this is, since this is the first time that you're seeing it, maybe it's a little bit foreign to you, it's a little bit out of ordinary. So, I really suggest you pause the video, try this on your own, and see for yourselves. And, we're going to stop here. So, I really suggest doing that exercise before coming into the next lecture, and then meet me within the next lecture.
