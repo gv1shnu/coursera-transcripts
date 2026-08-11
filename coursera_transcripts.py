@@ -33,6 +33,7 @@ import json
 import logging
 import re
 import sys
+import tempfile
 import time
 from dataclasses import dataclass, asdict
 from pathlib import Path
@@ -46,10 +47,7 @@ from tqdm import tqdm
 
 # --- browser / profile (dedicated, mirrors the other scripts here) ---
 BRAVE_PATH = "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
-AUTOMATION_USER_DATA_DIR = (
-    Path.home()
-    / "Library/Application Support/BraveSoftware/Brave-Browser-Coursera-Transcripts"
-)
+AUTOMATION_USER_DATA_DIR = Path(tempfile.gettempdir()) / "brave-coursera-transcripts"
 
 HEADLESS = False
 DEFAULT_TIMEOUT_MS = 30_000
@@ -230,6 +228,22 @@ def is_logged_in(page) -> bool:
         return True
     if find_first_optional(page, TRANSCRIPT_TAB_SELECTORS, timeout_ms=1_500) is not None:
         return True
+    # Negative signals: an on-page login/create-account wall. Coursera's wall is
+    # email-first, so there may be no password field yet — also look for the
+    # email field, the social-login buttons, and the heading text.
+    login_wall_selectors = [
+        "input[type='password']",
+        "input[type='email']",
+        "input[name='email']",
+        "button:has-text('Continue with Google')",
+        "text=Log in or create account",
+    ]
+    for sel in login_wall_selectors:
+        try:
+            if page.locator(sel).count() > 0:
+                return False
+        except Exception:
+            continue
     # Fall back to absence of an obvious login form.
     return page.locator("input[type='password']").count() == 0
 
@@ -330,9 +344,16 @@ def discover_outline(page, course_url: str, slug: str, max_modules: int = 30):
     order = 0
     empty_streak = 0
 
+    if not is_logged_in(page):
+        LOGGER.info("Waiting for Coursera login before discovering the outline.")
+        pause_for_login_if_needed(page, course_url)
+
     for module_index in range(1, max_modules + 1):
         found_new = False
         for path in (f"/home/module/{module_index}", f"/home/week/{module_index}"):
+            if not is_logged_in(page):
+                LOGGER.info("Login lost while discovering the outline; waiting again.")
+                pause_for_login_if_needed(page, base + path)
             target = base + path
             # Some (often older) courses use /week/ not /module/, and hitting the
             # non-existent variant can abort (ERR_ABORTED) rather than 404 cleanly.
@@ -349,8 +370,6 @@ def discover_outline(page, course_url: str, slug: str, max_modules: int = 30):
             if not loaded:
                 continue
             wait_ready(page)
-            if module_index == 1:
-                pause_for_login_if_needed(page, target)
             polite_sleep(PAGE_SETTLE_SECONDS, "outline settle")
             expand_all_sections(page)
             module_title = page_module_title(page, module_index)
@@ -644,16 +663,56 @@ def get_course_title(page, slug: str) -> str:
 
 # --------------------------------- main ----------------------------------
 
+def build_fallback_profile_dir(base_profile_dir: str | Path) -> Path:
+    base = Path(base_profile_dir)
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    fallback = base.parent / f"{base.name}-{timestamp}"
+    return fallback
+
+
+def launch_brave_profile(playwright, profile_dir: str | Path):
+    launch_args = [
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--disable-features=Translate",
+    ]
+    try:
+        return playwright.chromium.launch_persistent_context(
+            user_data_dir=str(profile_dir),
+            executable_path=BRAVE_PATH,
+            headless=HEADLESS,
+            accept_downloads=False,
+            args=launch_args,
+        )
+    except Exception as exc:
+        message = str(exc).lower()
+        if "processsingleton" not in message and "profile is already in use" not in message and "already in use" not in message:
+            raise
+
+        fallback_dir = build_fallback_profile_dir(profile_dir)
+        LOGGER.warning(
+            "Brave profile %s is already in use or locked. Falling back to a fresh profile: %s",
+            profile_dir,
+            fallback_dir,
+        )
+        return playwright.chromium.launch_persistent_context(
+            user_data_dir=str(fallback_dir),
+            executable_path=BRAVE_PATH,
+            headless=HEADLESS,
+            accept_downloads=False,
+            args=launch_args,
+        )
+
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Fetch and organize Coursera course transcripts.")
     p.add_argument("--course-url", required=True,
                    help="Any URL of the target course (home/week/lecture page).")
-    p.add_argument("--cdp-url", default="http://127.0.0.1:9222",
-                   help="Attach to a running Brave/Chrome started with "
-                        "--remote-debugging-port (uses YOUR logged-in profile). "
-                        "Set to '' to launch a dedicated profile instead.")
+    p.add_argument("--cdp-url", default="",
+                   help="Optional CDP URL for an already-running Brave/Chrome started with "
+                        "--remote-debugging-port. Leave blank to use the dedicated Brave profile.")
     p.add_argument("--profile-dir", default=str(AUTOMATION_USER_DATA_DIR),
-                   help="Dedicated Brave profile dir, used only when --cdp-url is empty.")
+                   help="Dedicated Brave profile dir, used when --cdp-url is not provided.")
     p.add_argument("--discover-only", action="store_true",
                    help="Only build/refresh the outline; don't extract transcripts.")
     p.add_argument("--refresh-outline", action="store_true",
@@ -675,29 +734,39 @@ def main() -> None:
     args = parse_args()
     slug = course_slug_from_url(args.course_url)
     LOGGER.info("Course slug: %s", slug)
-    LOGGER.info("Using dedicated Brave profile: %s", args.profile_dir)
 
     with sync_playwright() as playwright:
         browser = None
+        cdp_mode = False
         if args.cdp_url:
-            LOGGER.info("Attaching to running browser via CDP: %s", args.cdp_url)
-            browser = playwright.chromium.connect_over_cdp(args.cdp_url)
-            context = browser.contexts[0] if browser.contexts else browser.new_context()
+            LOGGER.info("Attempting to attach to running browser via CDP: %s", args.cdp_url)
+            try:
+                browser = playwright.chromium.connect_over_cdp(args.cdp_url)
+                context = browser.contexts[0] if browser.contexts else browser.new_context()
+                cdp_mode = True
+            except Exception as exc:
+                LOGGER.warning(
+                    "CDP attach failed for %s: %s. Falling back to a dedicated Brave profile.",
+                    args.cdp_url,
+                    exc,
+                )
+                browser = None
+                context = playwright.chromium.launch_persistent_context(
+                    user_data_dir=args.profile_dir,
+                    executable_path=BRAVE_PATH,
+                    headless=HEADLESS,
+                    accept_downloads=False,
+                    args=["--no-first-run", "--no-default-browser-check",
+                          "--disable-features=Translate"],
+                )
         else:
             LOGGER.info("Launching dedicated Brave profile: %s", args.profile_dir)
-            context = playwright.chromium.launch_persistent_context(
-                user_data_dir=args.profile_dir,
-                executable_path=BRAVE_PATH,
-                headless=HEADLESS,
-                accept_downloads=False,
-                args=["--no-first-run", "--no-default-browser-check",
-                      "--disable-features=Translate"],
-            )
+            context = launch_brave_profile(playwright, args.profile_dir)
         context.set_default_timeout(DEFAULT_TIMEOUT_MS)
         context.set_default_navigation_timeout(NAVIGATION_TIMEOUT_MS)
         # In CDP mode open our own working tab (login is shared at the profile
         # level) so we never hijack a tab you're using.
-        if args.cdp_url:
+        if cdp_mode:
             page = context.new_page()
         else:
             page = context.pages[0] if context.pages else context.new_page()
