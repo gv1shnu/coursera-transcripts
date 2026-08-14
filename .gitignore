@@ -3,3 +3,9 @@
 *.log
 
 *.txt
+
+*.json
+
+coursera_screenshots/
+
+harvest_all.py
